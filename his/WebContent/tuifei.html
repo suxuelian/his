@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>退费</title>
+<!-- Bootstrap -->
+<link href="static/lib/bootstrap-3.3.7-dist/css/bootstrap.css"
+	rel="stylesheet">
+
+<style type="text/css">
+/* 每个网页都建议初始化页面 */
+body, ul, li {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	font-size: 12px;
+}
+
+input, select {
+	height: 20px;
+}
+
+/* 导航栏 */
+.daohang {
+	width: 100%;
+	height: 30px;
+	background: #A0C0C0;
+}
+
+.top-part {
+	padding-left: 15px;
+}
+
+.top-part li {
+	display: inline-block;
+	/*  把块元素变成内敛元素 */
+	padding: 0 10px;
+	line-height: 30px;
+	/* 使他和容器的高度相等 达到垂直居中*/
+}
+
+/* 第二部分 */
+a {
+	text-decoration: none;
+}
+
+.info-label {
+	height: 40px;
+	padding-left: 15px;
+	font-weight: bold;
+	line-height: 40px;
+	color: darkgreen;
+}
+
+.ticket-info {
+	display: flex;
+	/* 盒子布局*/
+	background-color: #90C0C0;
+	height: 40px;
+	/* line-height: 40px; */
+}
+
+.ticket-info div {
+	line-height: 40px;
+}
+
+.ticket-info div:nth-child(1) {
+	
+}
+
+.ticket-info div:nth-child(2) {
+	margin-left: 50px;
+}
+
+.ticket-info div:nth-child(3) {
+	margin-left: 50px;
+}
+
+.guahao-navbar li {
+	display: inline-block;
+	padding: 0 10px;
+}
+
+.in-main-box li {
+	display: inline-block;
+	margin: 5px 10px;
+	width: 300px;
+}
+
+.in-main-box li .in-title {
+	display: inline-block;
+	/*  把块元素变成内敛元素 */
+	width: 60px;
+}
+
+/* 第三部分 */
+.underline {
+	border: none;
+	border-bottom: black solid 0.7px;
+}
+
+/* 第六部分 */
+.main-data-show .data-title {
+	border-top: 1px solid #ddd;
+	height: 30px;
+	line-height: 30px;
+}
+
+.main-data-show .data-title span:nth-child(1) {
+	
+}
+
+.main-data-show .data-title span:nth-child(2) {
+	float: right;
+	/*浮动到右边*/
+	padding-right: 10px;
+}
+
+.main-data-show .data-title span:nth-child(3) {
+	float: right;
+	/*浮动到右边*/
+	padding-right: 10px;
+}
+
+.main-data-show .data-title span:nth-child(4) {
+	float: right;
+	/*浮动到右边*/
+	padding-right: 10px;
+}
+
+.page {
+	text-align: center;
+}
+</style>
+</head>
+<body>
+
+	<!-- 第一部分 -->
+	<div class="daohang">
+		<ul class="top-part">
+			<li>门诊挂号管理</li>
+			<li>|</li>
+			<li>门诊收费管理</li>
+			<li>|</li>
+			<li>住院登陆管理</li>
+			<li>|</li>
+			<li>住院费用管理</li>
+			<li>|</li>
+			<li>医院字典设定</li>
+			<li>|</li>
+			<li>个人设置</li>
+		</ul>
+	</div>
+
+	<!-- 第二部分 -->
+	<div class="ticket-info">
+		<div class="info-label">单据信息</div>
+		<div>
+			<span>门诊普通发票</span> <input type="text" /> <span><a href="">更新发票号</a></span>
+		</div>
+
+		<div>
+			<!-- 下拉菜单 -->
+			<select>
+				<option value="id-card">身份证号</option>
+				<option value="yibao">医保卡号</option>
+				<option value="nonghe">农合卡号</option>
+				<option value="jiankang">健康卡号</option>
+				<option value="xikang">熙康卡号</option>
+			</select> <input id="idCard" type="text" /> <span><i
+				class="glyphicon glyphicon-credit-card"></i>医保卡读卡</span> <span><i
+				class="glyphicon glyphicon-credit-card"></i>农合卡读卡</span> <span><i
+				class="glyphicon glyphicon-credit-card"></i>身份证读卡</span> <span><i
+				class="glyphicon glyphicon-credit-card"></i>健康卡读卡</span> <span><i
+				class="glyphicon glyphicon-credit-card"></i>熙康卡读卡</span>
+		</div>
+	</div>
+
+
+
+	<!-- 第三部分 -->
+	<div>
+		<ul class="in-main-box">
+			<li><span class="in-title">收费单号</span> 
+				<input id="payInfoId" type="number" class="underline"></li>
+			<li><span class="in-title">病历号</span> 
+				<input id="caseNo" type="text"></li>
+			<li><span class="in-title">患者姓名</span> 
+				<input id="rname" type='text' class="underline"></li>
+			<li><span class="in-title">结算类别</span> 
+				<input id="settleType" type='text' class="underline"></li>
+			<li><span class="in-title">总金额</span> 
+				<input type='text' class="underline payMoney"></li>
+			<li><span class="in-title">实付金额</span> 
+				<input  type='text' class="underline payMoney"></li>
+			<li><span class="in-title">现金支付</span> 
+				<input  type='text' class="underline payMoney"></li>
+			<li><span class="in-title">账户支付</span> 
+				<input type='text' class="underline zero"></li>
+			<li><span class="in-title">报销金额</span>
+				<input type='text' class="underline zero"></li>
+		</ul>
+	</div>
+	<!-- 第五部分 -->
+	<div class="main-data-show">
+		<div class="data-title">
+			<span class="info-label">收费明细</span> <span><i
+				class="glyphicon glyphicon-refresh"></i>清屏</span> <span><i
+				class="glyphicon glyphicon-print"></i>保存</span> <span id="unPayBtn"><i
+				class="glyphicon glyphicon-th-list"></i>全退</span>
+		</div>
+		<table class="table table-bordered">
+			<tr>
+				<th></th>
+				<th>项目名称</th>
+				<th>规格</th>
+				<th>优惠前单价/元</th>
+				<th>优惠后单价/元</th>
+				<th>开立数量</th>
+				<th>单位</th>
+				<th>可退数量</th>
+				<th>退费数量</th>
+				<th>退费金额/元</th>
+				<th>优惠后退费金额/元</th>
+				<th>发药标识</th>
+			</tr>
+			<tbody id="payDetailList">
+			</tbody>
+		</table>
+	</div>
+
+
+	<script src="static/lib/jquery-1.12.4.js" type="text/javascript"
+		charset="UTF-8"></script>
+	<script src="static/lib/bootstrap-3.3.7-dist/js/bootstrap.js"
+		type="text/javascript" charset="UTF-8"></script>
+	<script src="static/js/register-util.js" type="text/javascript"
+		charset="UTF-8"></script>
+	<script type="text/javascript">
+		// 表示文档结构已经加载完成（不包含图片等非文字媒体文件）
+		$(document).ready(function() {
+			
+			//根据caseNo查询信息-s
+			$("#caseNo").blur(function(){
+				
+				$("#payDetailList").html(""); //再次查询之前清空缓存
+				
+				var caseNo = $(this).val();
+				$.ajax({
+					url:"/his/unpay",
+					type:"get",
+					data:{
+						caseNo:caseNo
+						}, //后台：前端
+					dataType:"json", 	//声明数据格式为json
+					error:function(){
+						alert("查询失败");
+					},
+					success:function(e){
+						//展示数据到页面
+						//console.info(e);
+						$.each(e, function(index, data){
+							$("#payInfoId").val(data.id);
+							$("#rname").val(data.rname);
+							
+							//结算类型{0:自费,1:医保卡,2:保险金,3:其他,}
+							//结算类型:{0:自费,1:医保卡,2:保险金,3:其他,}
+							if(data.settleType == "0"){
+								$("#settleType").val("自费");
+							}else if(data.settleType == "1"){
+								$("#settleType").val("医保卡");
+							}else if(data.settleType == "2"){
+								$("#settleType").val("保险金");
+							}else{
+								$("#settleType").val("其他");
+							}
+							$(".payMoney").val(data.payMoney);
+							$(".zero").val("0");
+							
+							//收费明细列表
+							//此处最好用单引号，因为html的尖角标签（<>）本身带有双引号的意思
+					
+							var drugItemHtml = '<tr id="'+ data.id +'"><td>'+(index+1)+'</td>';
+							drugItemHtml += '<td>' + data.dgName + '</td>';
+							drugItemHtml += '<td>' + data.dgSpec + '</td>'; //规格
+							drugItemHtml += '<td>' + data.price  + '</td>';	//优惠前单价
+							drugItemHtml += '<td>' + data.price  + '</td>'; //优惠后单价
+							drugItemHtml += '<td>' + data.payNum + '</td>'; //开立数量
+							drugItemHtml += '<td>' + data.dgUit + '</td>'; //单位
+							drugItemHtml += '<td>' + data.payNum + '</td>'; 	//可退数量
+							drugItemHtml += '<td><input type="text" name="unPayNum" value="0" ></td>'; 	// 退费数量
+							drugItemHtml += '<td>0</td>'; 	//退费金额
+							drugItemHtml += '<td>0</td>'; 	//优惠后退费金额
+							drugItemHtml += '<td>是</td>'; 	// 发药标识
+							drugItemHtml += '</tr>';
+							
+							$("#payDetailList").append(drugItemHtml); 
+			        	
+						});
+					}
+				});
+			});
+			//根据caseNo查询信息-e
+			
+			//确定退款数量-s
+			$("#payDetailList").on("blur","input[name='unPayNum']",function(){
+				//取得数量
+				var unPaynum = $(this).val();
+				if(unPaynum == "") unPaynum = 0;
+				
+				//退款药品的数量不能超过开立数量
+				var payNum = $(this).parent().parent().children("td").eq(5).text();
+				//alert(" 开立数量："+payNum + "unPaynum: "+unPaynum)
+				//js比较数字大小不能直接比较
+				if(parseInt(unPaynum) > parseInt(payNum)){
+					alert("退款数量不得大于开立数量！")
+					$(this).val(0);
+				}else{
+					// 计算金额(单价*数量)
+					var money = unPaynum*($(this).parent().parent().children("td").eq(3).text());
+					//更改金额
+					$(this).parent().parent().children("td").eq(9).text(money);
+					$(this).parent().parent().children("td").eq(10).text(money);
+				}
+				
+			});
+			//确定退款数量-e
+			
+			//退款-s
+			$("#unPayBtn").click(function() {
+				var unPayData = [];	//存储pId和 unPayNum	
+				
+				//取得收费明细列表下的所有<tr></tr>
+				var trs = $("#payDetailList").children("tr");
+				
+				for(var i=0; i < trs.length; i++){
+					//console.info(trs[i]);
+					
+					var pId = $(trs[i]).attr("id");
+					var unPayNum = $(trs[i]).children("td").children("input[name='unPayNum']").val();
+					var price =  $(trs[i]).children("td").eq(3).text();
+					// 向数组中添加数据 push，用（,）分割( 拆分时符号要对应！)
+					unPayData.push(pId+","+unPayNum+","+price);
+				}
+				
+				//修改 pay_info中的pay_num和pay_money  -----s
+				$.ajax({
+					url : "/his/unPayConfirm",
+					type : "post",
+					dataType : "text",
+					data : {
+						unPayData:unPayData
+					},
+					traditional:true,
+					error : function() {
+
+					},
+					success : function(e) {
+						//展示数据到页面
+						if (e == "no") {
+							alert("退费失败！");
+						} else {
+							alert("退费成功！");
+						}
+
+					}
+				});
+				//修改 pay_info中的pay_num和pay_money  -----e
+				
+			});
+			//退款-e
+			
+		});
+	</script>
+
+	</body>
+</html>

@@ -1,0 +1,459 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>诊断</title>
+<!-- Bootstrap -->
+<link href="static/lib/bootstrap-3.3.7-dist/css/bootstrap.css"
+	rel="stylesheet">
+
+<style type="text/css">
+/* 每个网页都建议初始化页面 */
+body, ul, li {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	font-size: 12px;
+}
+
+.red {
+	color: red;
+}
+
+.green {
+	color: green;
+}
+
+/* 导航栏 */
+.daohang {
+	height: 30px;
+	background: #A0C0C0;
+}
+
+.top-part {
+	padding-left: 15px;
+}
+
+.top-part li {
+	display: inline-block;
+	/*  把块元素变成内敛元素 */
+	padding: 0 5px;
+	line-height: 30px;
+	/* 使他和容器的高度相等 达到垂直居中*/
+}
+
+/* zhenduan */
+.zhenduan {
+	display: flex;
+	padding: 10px 0 10px 10px;
+}
+
+.zhenduan #left {
+	width: 30%;
+}
+
+.zhenduan #right {
+	padding: 0 0 0 10px;
+	width: 70%;
+}
+
+/* 左 */
+.search {
+	padding: 0 5px 20px 0;
+}
+
+.search input {
+	height: 20px;
+}
+
+.info-label {
+	height: 40px;
+	padding-left: 15px;
+	font-weight: bold;
+	line-height: 40px;
+	color: darkgreen;
+}
+
+.zhen span:nth-child(2) {
+	float: right;
+	margin-top: 10px;
+}
+
+.text-right {
+	text-align: right;
+}
+
+.size {
+	height: 180px;
+}
+
+.overflow {
+	overflow: auto;
+}
+
+/* 右 */
+.in-main-box li {
+	display: inline-block;
+	padding: 0 3px;
+}
+
+.in-main-box li input {
+	width: 40px;
+}
+
+.in-main-box li .in-title {
+	display: inline-block;
+	/*  把块元素变成内敛元素 */
+	font: bolder;
+}
+
+.no-boder {
+	border: none;
+}
+/* 右导航 */
+.youdaohang {
+	background: #90C0C0;
+}
+</style>
+
+</head>
+<body>
+	<!-- 第一部分 -->
+	<div class="daohang">
+		<ul class="top-part">
+			<li>通知公告</li>
+			<li>|</li>
+			<li>门诊医生站</li>
+			<li>|</li>
+			<li>住院医生站</li>
+			<li>|</li>
+			<li>住院登记管理</li>
+			<li>|</li>
+			<li>医院报告</li>
+			<li>|</li>
+			<li>全局模板管理</li>
+			<li>|</li>
+			<li>医院模板管理</li>
+			<li>|</li>
+			<li>病例病案管理</li>
+			<li>|</li>
+			<li>病例权限管理</li>
+			<li>|</li>
+			<li>医院字典管理</li>
+			<li>|</li>
+			<li>个人设置</li>
+		</ul>
+	</div>
+
+	<div class="zhenduan">
+		<div id="left">
+			<!-- 左 -->
+			<div class="search">
+				<span>患者查询：</span> <input type='text'> <span><i
+					class="glyphicon glyphicon-search"></i></span>
+			</div>
+
+			<div>
+				<ul class="nav nav-tabs">
+					<li role="presentation" class="active"><a href="#">本人</a></li>
+					<li role="presentation"><a href="#">科室</a></li>
+				</ul>
+			</div>
+
+			<!-- 待诊 -->
+			<div class="zhen">
+				<span class="info-label">待诊患者信息</span> <span><i
+					class="glyphicon glyphicon-refresh"></i></span>
+			</div>
+			<div class="size overflow">
+				<table class="table table-striped">
+					<tbody id="awaitingTable">
+					</tbody>
+				</table>
+			</div>
+
+			<!-- 已诊 -->
+			<div class="zhen">
+				<span class="info-label">已诊患者信息</span> <span><i
+					class="glyphicon glyphicon-refresh"></i></span>
+			</div>
+			<div class="size overflow">
+				<table class="table table-striped">
+					<tbody id="diagedTable">
+					</tbody>
+				</table>
+			</div>
+
+		</div>
+
+
+		<div id="right">
+			<!-- 右 -->
+			<div id="infoTitle">
+				<span class="red">请先选择患者！</span>
+
+			</div>
+
+			<div class="youdaohang">
+				<ul class="top-part">
+					<li>门诊首页</li>
+					<li>|</li>
+					<li data-toggle="modal" data-target="#myModal">门诊病历</li>
+					<li>|</li>
+					<li>成药处方</li>
+					<li>|</li>
+					<li>外派处方</li>
+					<li>|</li>
+					<li>草药处方</li>
+					<li>|</li>
+					<li>检查申请</li>
+					<li>|</li>
+					<li>检验申请</li>
+					<li>|</li>
+					<li>处置单</li>
+					<li>|</li>
+					<li>中医项目</li>
+					<li>|</li>
+					<li>患者账单</li>
+				</ul>
+			</div>
+			<div>
+				<table class="table table-bordered">
+					<tr>
+						<td rowspan="3">基本信息</td>
+						<td>姓名</td>
+						<td><input id="rname2" type='text' class="no-boder"></td>
+						<td>病历号</td>
+						<td><input id="caseNo2" type='text' class="no-boder"></td>
+					</tr>
+					<tr>
+						<td>性别</td>
+						<td><input id="sex2" type='text' class="no-boder"></td>
+						<td>出生日期</td>
+						<td><input id="birthday" type='text' class="no-boder"></td>
+					</tr>
+					<tr>
+						<td>年龄</td>
+						<td><input id="age2" type='text' class="no-boder"></td>
+						<td>身份证号</td>
+						<td><input id="idNo" type='text' class="no-boder"></td>
+					</tr>
+					<tr>
+						<td>西医诊断</td>
+						<td colspan="4"><input id="diagnose" type='text'
+							class="no-boder"></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">西医诊断</h4>
+				</div>
+				<div class="modal-body">
+					<textarea id="diaInfo" class="form-control" rows="8"></textarea>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+					<button id="confirm" type="submit" class="btn btn-primary ">确认</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="static/lib/jquery-1.12.4.js" type="text/javascript"
+		charset="UTF-8"></script>
+	<script src="static/lib/bootstrap-3.3.7-dist/js/bootstrap.js"
+		type="text/javascript" charset="UTF-8"></script>
+	<script src="static/js/register-util.js" type="text/javascript"
+		charset="UTF-8"></script>
+	<script type="text/javascript">
+		//根据doctorid获取所属患者信息-s
+		var id = getQueryString("id");
+		//alert(id)
+		//ajax。AJAX 通过在后台与服务器进行少量数据交换，使网页实现异步更新
+		//$.ajax({});
+		$.ajax({
+			url : "/his/getPatient", //请求路径 
+			type : "get", //请求类型
+			data : {
+				doctorId : id,
+			},
+			dataType : "json", //返回数据的类型//请求数据,传数据到后台  {后面参数名字：前台参数名字}
+			error : function() {
+				alert("查询病人失败！");
+			}, //错误
+
+			success : function(e) {
+				//展示数据到页面
+				//console.info(e);
+				$("#awaitingTable").html(""); //再次查询之前清空缓存
+				$.each(e, function(index, data) {
+					//区分诊断状态{未诊：0，已诊：1}
+					if (data.diagState == "0") {
+						//未诊
+						var awaitingHtml = '<tr id="'+data.caseNo+'">';
+						awaitingHtml += '<td>' + data.caseNo + '</td>';
+						awaitingHtml += '<td>' + data.rname + '</td>';
+						awaitingHtml += '<td>' + data.age + '</td>';
+						awaitingHtml += '</tr>';
+
+						$("#awaitingTable").append(awaitingHtml);
+					} else if (data.diagState == "1") {
+						//已诊
+						var diagedHtml = '<tr id="'+data.caseNo+'">';
+						diagedHtml += '<td>' + data.caseNo + '</td>';
+						diagedHtml += '<td>' + data.rname + '</td>';
+						diagedHtml += '<td>' + data.age + '</td>';
+						diagedHtml += '</tr>';
+						$("#diagedTable").append(diagedHtml);
+					} else {
+						alert("患者诊断状态错误！");
+					}
+				});
+			}
+		});
+		//根据doctorid获取所属患者信息-e
+
+		//点击未诊换患者显示详细信息，根据病历号查询挂号信息-s
+		$("#awaitingTable").on(
+				"click",
+				"tr",
+				function() {
+					//alert($(this).attr("id"));
+					var caseNo = $(this).attr("id");
+					console.info(caseNo);
+					if (caseNo != '') {
+						//查询挂号信息
+						$.ajax({
+							url : "/his/getRegisterByCaseNo",
+							type : "get",
+							data : {
+								caseno : caseNo
+							}, //后台：前端
+							dataType : "json", //声明数据格式为json
+							error : function() {
+								alert("查询失败！")
+							},
+							success : function(data) {
+								//console.info(data);
+								//展示数据到页面
+								//infoTitle
+								$("#infoTitle").html(""); //再次查询之前清空缓存
+								var diaState;
+								var sex;
+								var settleType;
+
+								//是否已诊:{0:未诊断,1:已诊断}
+								if (data.diagState == "0") {
+									diaState = "未诊"
+								} else if (data.diagState == "1") {
+									diaState = "已诊"
+								} else {
+									diaState = "未知"
+								}
+
+								//性别:{0:男,1:女}
+								if (data.sex == 0) {
+									sex = "男";
+								} else if (data.sex == 1) {
+									sex = "女";
+								} else {
+									sex = "未知";
+								}
+
+								//结算类型:{0:自费,1:医保卡,2:保险金,3:其他,}
+								if (data.settleType == "0") {
+									settleType = "自费";
+								} else if (data.settleType == "1") {
+									settleType = "医保卡";
+								} else if (data.settleType == "2") {
+									settleType = "保险金";
+								} else {
+									settleType = "其他";
+								}
+
+								var titleHtml = '<ul class="in-main-box">';
+								titleHtml += '<li><span class="in-title">就诊状态:'
+										+ diaState + '</span> </li>';
+								titleHtml += '<li><span class="in-title">就诊号:'
+										+ data.caseNo + '</span> </li>';
+								titleHtml += '<li><span class="in-title">姓名:'
+										+ data.rname + '</span> </li>';
+								titleHtml += '<li><span class="in-title">性别:'
+										+ sex + '</span> </li>';
+								titleHtml += '<li><span class="in-title">年龄:'
+										+ data.age + '</span> </li>';
+								titleHtml += '<li><span class="in-title">结算类别:'
+										+ settleType + '</span> </li>';
+								titleHtml += '</ul>';
+
+								$("#infoTitle").append(titleHtml);
+
+								//表格信息
+								$("#rname2").val(data.rname);
+								$("#caseNo2").val(data.caseNo);
+								$("#sex2").val(sex);
+								$("#birthday").val(data.birthday);
+								$("#age2").val(data.age);
+								$("#idNo").val(data.idCard);
+							}
+						});
+					} else {
+						alert("无效病历号！")
+					}
+				});
+		//点击未诊换患者显示详细信息，根据病历号查询挂号信息-e
+
+		//点击已诊患者，显示详细信息-s
+		$("#diagedTable").on("click", "tr", function() {
+
+			alert($(this).attr("id"));
+
+		});
+		//点击已诊患者，显示详细信息-e
+
+		//诊断操作-s
+		$("#confirm").click(function() {
+			var caseInfo = {
+				cNo : $("#caseNo2").val(),
+				cInfo : $("#diaInfo").val()
+			}
+			console.info(caseInfo);
+			//新增诊断信息
+			$.ajax({
+				url : "/his/diagnose",
+				type : "post",
+				data : caseInfo,
+				dataType : "text",
+				error : function() {
+
+				},
+				success : function(e) {
+					//展示数据到页面
+					if (e == "no") {
+						alert("诊断失败！");
+					} else {
+						alert("诊断成功！");
+					}
+
+				}
+			});
+			$('#myModal').modal('hide');
+			$("#diaInfo").val(""); //再次打开模态框之前清空缓存
+
+		});
+		//诊断操作-e
+	</script>
+</body>
+</html>

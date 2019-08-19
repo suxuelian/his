@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>挂号</title>
+<!-- Bootstrap -->
+<link href="static/lib/bootstrap-3.3.7-dist/css/bootstrap.css"
+	rel="stylesheet">
+
+<style type="text/css">
+/* 每个网页都建议初始化页面 */
+body, ul, li {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	font-size: 12px;
+}
+
+/* 导航栏 */
+.daohang {
+	width: 100%;
+	height: 30px;
+	background: #A0C0C0;
+}
+
+.top-part {
+	padding-left: 15px;
+}
+
+.top-part li {
+	display: inline-block;
+	/*  把块元素变成内敛元素 */
+	padding: 0 10px;
+	line-height: 30px;
+	/* 使他和容器的高度相等 达到垂直居中*/
+}
+
+/* 第二部分 */
+a {
+	text-decoration: none;
+}
+
+.info-label {
+	height: 40px;
+	padding-left: 15px;
+	font-weight: bold;
+	line-height: 40px;
+	color: darkgreen;
+}
+
+.card-part {
+	background-color: #ADEAEA;
+}
+
+.guahao-info {
+	display: flex;
+	/* 盒子布局*/
+	background-color: #90C0C0;
+	height: 40px;
+	line-height: 40px;
+}
+
+.guahao-info div:nth-child(1) {
+	width: 40%;
+}
+
+.guahao-info div:nth-child(2) {
+	width: 60%;
+	text-align: right;
+}
+
+.guahao-navbar li {
+	display: inline-block;
+	padding: 0 10px;
+}
+
+.in-main-box li {
+	display: inline-block;
+	margin: 5px 10px;
+	width: 220px;
+}
+
+.in-main-box li .in-title {
+	display: inline-block;
+	/*  把块元素变成内敛元素 */
+	width: 60px;
+}
+
+/* 第六部分 */
+.main-data-show .data-title {
+	border-top: 1px solid #ddd;
+	height: 30px;
+	line-height: 30px;
+}
+
+.main-data-show .data-title span:nth-child(1) {
+	
+}
+
+.main-data-show .data-title span:nth-child(2) {
+	float: right;
+	/*浮动到右边*/
+	padding-right: 10px;
+}
+
+.page {
+	text-align: center;
+}
+</style>
+</head>
+<body>
+
+	<!-- 第一部分 -->
+	<div class="daohang">
+		<ul class="top-part">
+			<li>门诊挂号管理</li>
+			<li>|</li>
+			<li>门诊收费管理</li>
+			<li>|</li>
+			<li>住院登陆管理</li>
+			<li>|</li>
+			<li>住院费用管理</li>
+			<li>|</li>
+			<li>医院字典设定</li>
+			<li>|</li>
+			<li>个人设置</li>
+		</ul>
+	</div>
+
+	<!-- 第二部分 -->
+	<div>
+		<span>门诊挂号发票</span> <input type="text" placeholder="0000001" /> <span><a
+			href="">更新发票号</a></span>
+	</div>
+
+	<!-- 第三部分 -->
+	<div class="guahao-info">
+		<div class="info-label">挂号信息</div>
+		<!-- 	<div >挂号信息</div> -->
+		<div>
+			<ul class="guahao-navbar">
+				<li><i class="glyphicon glyphicon-plus-sign"></i>预约选择</li>
+				<li id="guahaobutton" class="button"><i
+					class="glyphicon glyphicon-file"></i>挂号</li>
+				<li><i class="glyphicon glyphicon-menu-hamburger"></i>补收挂号费</li>
+				<li><i class="glyphicon glyphicon-print"></i>补打</li>
+				<li><i class="glyphicon glyphicon-print"></i>重打</li>
+				<li><i class="glyphicon glyphicon-refresh"></i>清屏</li>
+			</ul>
+		</div>
+	</div>
+	<div class="card-part">
+		<!-- 下拉菜单 -->
+		<select>
+			<option value="id-card">身份证号</option>
+			<option value="yibao">医保卡号</option>
+			<option value="nonghe">农合卡号</option>
+			<option value="jiankang">健康卡号</option>
+			<option value="xikang">熙康卡号</option>
+		</select> <input type="text" /> <span><i
+			class="glyphicon glyphicon-credit-card"></i>医保卡读卡</span> <span><i
+			class="glyphicon glyphicon-credit-card"></i>农合卡读卡</span> <span><i
+			class="glyphicon glyphicon-credit-card"></i>身份证读卡</span> <span><i
+			class="glyphicon glyphicon-credit-card"></i>健康卡读卡</span> <span><i
+			class="glyphicon glyphicon-credit-card"></i>熙康卡读卡</span>
+	</div>
+
+	<!-- 第四部分 -->
+	<div>
+		<ul class="in-main-box">
+			<li><span class="in-title">病历号</span> <input id="caseNo"
+				type="text"></li>
+			<li><span class="in-title">姓名</span> <input id="rname"
+				type="text"></li>
+			<li><span class="in-title">性别</span> <select id="sex">
+					<option value="0">男</option>
+					<option value="1">女</option>
+			</select></li>
+			<li><span class="in-title">年龄</span> <input id="age" type="text"
+				style="width: 50px;"> <select>
+					<option value="year">岁</option>
+					<option value="month">月</option>
+					<option value="day">天</option>
+			</select></li>
+			<li><span class="in-title">出生日期</span> <input id="birthday"
+				type="date" placeholder="年/月/日"></li>
+
+
+			<li><span class="in-title">结算类别</span> <select id="settleType">
+					<option value="0" selected="selected">自费</option>
+					<option value="1">医保卡</option>
+					<option value="2">保险金</option>
+					<option value="3">其他</option>
+			</select></li>
+			<li><span class="in-title">医疗证号</span> <input id="mcardNo"
+				type="text"></li>
+			<li><span class="in-title">医疗类别</span> <select id="medicalType">
+					<option value="0" selected="selected">市保</option>
+					<option value="1">公务员</option>
+			</select></li>
+			<li><span class="in-title">身份证号</span> <input id="idCard"
+				type="text"></li>
+			<li><span class="in-title">家庭住址</span> <input id="address"
+				type="text"></li>
+
+
+			<li><span class="in-title">看诊日期</span> <input id="vistDate"
+				type="date" placeholder="年/月/日"></li>
+			<li><span class="in-title">号别</span> <select id="regLevel">
+					<option value="0" selected="selected">普通</option>
+					<option value="1">专家</option>
+			</select></li>
+			<li><span class="in-title">挂号科室</span> <select id="deptNo">
+			</select></li>
+			<li><span class="in-title">看诊医生</span> <select id="drId">
+
+			</select></li>
+			<li><span class="in-title">应收金额</span> <input id="regPay"
+				type="text"></li>
+
+
+			<li><span class="in-title">挂号来源</span> <select id="regSrc">
+					<option value="0" selected="selected">窗口挂号</option>
+					<option value="1">网上挂号</option>
+			</select></li>
+		</ul>
+	</div>
+	<!-- 第五部分 -->
+	<div class="main-data-show">
+		<div class="data-title">
+			<span class="info-label">挂号信息列表</span> <span>
+			<i class="glyphicon glyphicon-refresh"></i>刷新</span>
+		</div>
+		<table class="table table-bordered table-hover table-striped">
+			<tr>
+				<th></th>
+				<th>病历号</th>
+				<th>姓名</th>
+				<th>性别</th>
+				<th>出生日期</th>
+				<th>身份证号</th>
+				<th>发票号</th>
+				<th>结算类别</th>
+				<th>挂号级别</th>
+				<th>挂号日期</th>
+				<th>看诊日期</th>
+				<th>是否已诊</th>
+				<th>状态</th>
+				<th>实收费用</th>
+				<th>看诊科室</th>
+			</tr>
+
+			<tbody id="showData">
+				
+			</tbody>
+
+		</table>
+	</div>
+
+	<!-- 第六部分，分页 -->
+	<nav aria-label="Page navigation"
+		class="text-center navbar-fixed-bottom">
+		<ul class="pagination">
+			<li><a href="#" aria-label="Previous"> <span
+					aria-hidden="true">&laquo;</span>
+			</a></li>
+			<li><a href="#">1</a></li>
+			<li><a href="#" aria-label="Next"> <span aria-hidden="true">&raquo;</span>
+			</a></li>
+		</ul>
+	</nav>
+
+
+
+	<script src="static/lib/jquery-1.12.4.js" type="text/javascript"
+		charset="UTF-8"></script>
+	<script src="static/js/register-util.js" type="text/javascript"
+		charset="UTF-8"></script>
+	<script type="text/javascript">
+		// 表示文档结构已经加载完成（不包含图片等非文字媒体文件）
+		$(document).ready(function() {
+
+			//----根据所选号别更改应收金额---s-
+			$("#regLevel").click(function(){
+				//获取下拉菜单中转中的值
+				var haobie = $("#regLevel option:selected").val();
+				if(haobie==0){
+					$("#regPay").val(2);
+				}else if(haobie==1){
+					$("#regPay").val(10);
+				}else{
+					alert("非法操作！");
+				}
+			});
+			//----根据所选号别更改应收金额--e--
+			
+			
+			//----根据出生日期得到年龄--s--
+			$("#birthday").blur(function(){
+				var date = $(this).val();
+				var age = getAgeByBirthday(date);
+				//赋值
+				$("#age").val(age);
+			});
+			//----根据出生日期得到年龄--e--
+			
+			
+			//----查询科室--start--
+			$.ajax({
+				url:"/his/dep",
+				type:"get",
+				dataType:"json", 	//声明数据格式为json
+				error:function(){
+					
+				},
+				success:function(e){
+					//展示数据到页面
+					$.each(e, function(indes, data){
+						console.info(data.dname);
+						//此处最好用单引号，因为html的尖角标签（<>）本身带有双引号的意思
+						$("#deptNo").append('<option value= "' + data.id + '">'+ data.dname +'</option>');
+					});
+				}
+			});
+			//----查询科室--end--
+			
+			//----根据科室查询医生--s---
+			$("#deptNo").blur(function(){
+				//获取到科室ID
+				//获取下拉菜单中转中的值
+				var depId = $("#deptNo option:selected").val();
+				if(depId != ""){
+					//查询科室的医生
+					$.ajax({
+						url:"/his/getDoctor",
+						type:"get",
+						data:{depId:depId}, //后台：前端
+						dataType:"json", 	//声明数据格式为json
+						error:function(){
+							
+						},
+						success:function(e){
+							//展示数据到页面
+							$("#drId").html("");	//每次选择清空之前项
+							$.each(e, function(indes, data){
+								console.info(data.dname);
+								//此处最好用单引号，因为html的尖角标签（<>）本身带有双引号的意思
+								$("#drId").append('<option value= "' + data.id + '">'+ data.username +'</option>');
+							});
+						
+						}
+					});
+					
+				}else{
+					alert("无效的科室信息！");
+				}
+				
+			});
+			//----根据科室查询医生--e---
+			
+			
+			//-----挂号---s---
+			$("#guahaobutton").click(function(){
+				var guahaoInfo = {
+						caseNo:$("#caseNo").val(),
+						rname:$("#rname").val(),
+						sex:$("#sex option:selected").val(),
+						age:$("#age").val(),
+						birthday:$("#birthday").val(),
+						settleType:$("#settleType option:selected").val(),
+						mcardNo:$("#mcardNo").val(),
+						medicalType:$("#medicalType option:selected").val(),
+						idCard:$("#idCard").val(),
+						address:$("#address").val(),
+						vistDate:$("#vistDate").val(),
+						regLevel:$("#regLevel option:selected").val(),
+						deptNo:$("#deptNo option:selected").val(),
+						drId:$("#drId option:selected").val(),
+						regPay:$("#regPay").val(),
+						regSrc:$("#regSrc option:selected").val()
+				}
+				console.info(guahaoInfo);
+				
+				//新增挂号信息
+				$.ajax({
+					url:"/his/register",
+					type:"post",
+					data:guahaoInfo, 
+					dataType:"text", 	
+					error:function(){
+						
+					},
+					success:function(e){
+						//展示数据到页面
+						if(e == "no"){
+							alert("挂号失败！");
+						}else{
+							alert("挂号成功！");
+						}
+					
+					}
+				});
+				
+				
+			});
+			//-----挂号--e----
+			
+			
+			//----查询显示挂号记录--start--
+			$.ajax({
+				url:"/his/getRegister",
+				type:"get",
+				dataType:"json", 	//声明数据格式为json
+				error:function(){
+					
+				},
+				success:function(e){
+					//展示数据到页面
+					console.info(e);
+					$.each(e,function(index,data){
+						var registerHtml = '<tr><td><input type="checkbox"></td>';
+						registerHtml += '<td>' + data.caseNo + '</td>';
+						registerHtml += '<td>' + data.rname +'</td>';
+						
+						//性别:{0:男,1:女}
+						if(data.sex==0){
+							registerHtml += '<td>男</td>';
+						}else if(data.sex==1){
+							registerHtml += '<td>女</td>';
+						}else{
+							registerHtml += '<td>女</td>';
+						}
+						registerHtml += '<td>' + data.birthday + '</td>';
+						registerHtml += '<td>' + data.idCard + '</td>';
+						registerHtml += '<td>' + data.caseNo + '</td>';
+						
+						//结算类型:{0:自费,1:医保卡,2:保险金,3:其他,}
+						if(data.settleType == "0"){
+							registerHtml += '<td>自费</td>';
+						}else if(data.settleType == "1"){
+							registerHtml += '<td>医保卡</td>';
+						}else if(data.settleType == "2"){
+							registerHtml += '<td>保险金</td>';
+						}else{
+							registerHtml += '<td>其他</td>';
+						}
+						
+						//挂号级别:{0:普通,1:专家}
+						if(data.regLevel == "0"){
+							registerHtml += '<td>普通</td>';
+						}else if(data.regLevel == "1"){
+							registerHtml += '<td>专家</td>';
+						}else{
+							registerHtml += '<td>未知</td>';
+						}
+						registerHtml += '<td>' + data.vistDate + '</td>';
+						registerHtml += '<td>' + data.vistDate + '</td>';
+						
+						//是否已诊:{0:未诊断,1:已诊断}
+						if(data.diagState == "0"){
+							registerHtml += '<td>未诊</td>';
+						}else if(data.diagState == "1"){
+							registerHtml += '<td>已诊</td>';
+						}else{
+							registerHtml += '<td>未知</td>';
+						}
+						
+						//挂号状态:{0:正常,1:已退号}
+						if(data.regState == "0"){
+							registerHtml += '<td>正常</td>';
+						}else if(data.regState == "1"){
+							registerHtml += '<td>已退号</td>';
+						}else{
+							registerHtml += '<td>未知</td>';
+						}
+						
+						registerHtml += '<td>' + data.regPay + '</td>';
+						
+						//科室{1:外科, 2:内科,3:耳鼻喉科,4:妇科,5:儿科,6:脑科}
+						if(data.deptNo == "1"){
+							registerHtml += '<td>外科</td>';
+						}else if(data.deptNo == "2"){
+							registerHtml += '<td>内科</td>';
+						}else if(data.deptNo == "3"){
+							registerHtml += '<td>耳鼻喉科</td>';
+						}else if(data.deptNo == "4"){
+							registerHtml += '<td>妇科</td>';
+						}else if(data.deptNo == "5"){
+							registerHtml += '<td>儿科</td>';
+						}else if(data.deptNo == "6"){
+							registerHtml += '<td>脑科</td>';
+						}else{
+							registerHtml += '<td>未知科室</td>';
+						}
+						registerHtml += '</tr>';
+																				
+						$("#showData").append(registerHtml);
+					});
+					
+					var no = $("#showData>tr:last td:eq(1)").text();
+					console.info(eval(no)+1);
+					
+					//----生成病历号--s--
+					//调用register-util.js中getTenStr()
+					
+					$("#caseNo").val(getTenStr(eval(no)+1));
+					//----生成病历号--e-- 
+					
+				}
+			});
+			//----查询显示挂号记录--end--
+
+		});
+	</script>
+</body>
+</html>

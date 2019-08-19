@@ -1,0 +1,768 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>收费</title>
+<!-- Bootstrap -->
+<link href="static/lib/bootstrap-3.3.7-dist/css/bootstrap.css"
+	rel="stylesheet">
+
+<style type="text/css">
+/* 每个网页都建议初始化页面 */
+body, ul, li {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	font-size: 12px;
+}
+
+/* 导航栏 */
+.daohang {
+	width: 100%;
+	height: 30px;
+	background: #A0C0C0;
+}
+
+.top-part {
+	padding-left: 15px;
+}
+
+.top-part li {
+	display: inline-block;
+	/*  把块元素变成内敛元素 */
+	padding: 0 10px;
+	line-height: 30px;
+	/* 使他和容器的高度相等 达到垂直居中*/
+}
+
+/* 第二部分 */
+a {
+	text-decoration: none;
+}
+
+.info-label {
+	height: 40px;
+	padding-left: 15px;
+	font-weight: bold;
+	line-height: 40px;
+	color: darkgreen;
+}
+
+.card-part {
+	background-color: #ADEAEA;
+}
+
+.guahao-info {
+	display: flex;
+	/* 盒子布局*/
+	background-color: #90C0C0;
+	height: 40px;
+	line-height: 40px;
+}
+
+.guahao-info div:nth-child(1) {
+	width: 40%;
+}
+
+.guahao-info div:nth-child(2) {
+	width: 60%;
+	text-align: right;
+}
+
+.guahao-navbar li {
+	display: inline-block;
+	padding: 0 10px;
+}
+
+.in-main-box li {
+	display: inline-block;
+	margin: 5px 10px;
+	width: 220px;
+}
+
+.in-main-box li .in-title {
+	display: inline-block;
+	/*  把块元素变成内敛元素 */
+	width: 60px;
+}
+
+/* 第六部分 */
+.main-data-show .data-title {
+	border-top: 1px solid #ddd;
+	height: 30px;
+	line-height: 30px;
+}
+
+.main-data-show .data-title span:nth-child(1) {
+	
+}
+
+.main-data-show .data-title span:nth-child(2) {
+	float: right;
+	/*浮动到右边*/
+	padding-right: 10px;
+}
+
+.main-data-show .data-title span:nth-child(3) {
+	float: right;
+	/*浮动到右边*/
+	padding-right: 10px;
+}
+
+.page {
+	text-align: center;
+}
+.no-boder {
+	border: none;
+}
+</style>
+</head>
+<body>
+
+	<!-- 第一部分 -->
+	<div class="daohang">
+		<ul class="top-part">
+			<li>门诊挂号管理</li>
+			<li>|</li>
+			<li>门诊收费管理</li>
+			<li>|</li>
+			<li>住院登陆管理</li>
+			<li>|</li>
+			<li>住院费用管理</li>
+			<li>|</li>
+			<li>医院字典设定</li>
+			<li>|</li>
+			<li>个人设置</li>
+		</ul>
+	</div>
+
+	<!-- 第二部分 -->
+	<div>
+		<span>门诊挂号发票</span> <input type="text" /> <span><a href="">更新发票号</a></span>
+	</div>
+
+	<!-- 第三部分 -->
+	<div class="guahao-info">
+		<div class="info-label">挂号信息</div>
+		<!-- 	<div >挂号信息</div> -->
+		<div>
+			<ul class="guahao-navbar">
+				<li><i class="glyphicon glyphicon-print"></i>发票重打</li>
+				<li><i class="glyphicon glyphicon-print"></i>发票补打</li>
+				<li id="payBtn"><i class="glyphicon glyphicon-ok-sign"></i>收费结算</li>
+				<li id="huajiaBtn"><i class="glyphicon glyphicon-yen"></i>划价</li>
+				<li><i class="glyphicon glyphicon-plus"></i>增方</li>
+				<li><i class="glyphicon glyphicon-minus"></i>删方</li>
+				<li><i class="glyphicon glyphicon-refresh"></i>清屏</li>
+			</ul>
+		</div>
+	</div>
+	<div class="card-part">
+		<!-- 下拉菜单 -->
+		<select>
+			<option value="id-card">身份证号</option>
+			<option value="yibao">医保卡号</option>
+			<option value="nonghe">农合卡号</option>
+			<option value="jiankang">健康卡号</option>
+			<option value="xikang">熙康卡号</option>
+		</select> <input id="pId" type="text" /> <span><i
+			class="glyphicon glyphicon-credit-card"></i>医保卡读卡</span> <span><i
+			class="glyphicon glyphicon-credit-card"></i>农合卡读卡</span> <span><i
+			id="findRegister" class="glyphicon glyphicon-credit-card"></i>身份证读卡</span> <span><i
+			class="glyphicon glyphicon-credit-card"></i>健康卡读卡</span> <span><i
+			class="glyphicon glyphicon-credit-card"></i>熙康卡读卡</span>
+	</div>
+
+	<!-- 第四部分 -->
+	<div id="info">
+		<ul class="in-main-box">
+			<li><span class="in-title">病历号</span> <input id="caseNo"
+				type="number"></li>
+			<li><span class="in-title">姓名</span> <input id="rname"
+				type="text"></li>
+			<li><span class="in-title">性别</span><select id="sex">
+					<option selected disabled></option>
+					<option value="0">男</option>
+					<option value="1">女</option>
+			</select></li>
+			<li><span class="in-title">年龄</span> <input id="age" type="text"
+				style="width: 50px;"> <select>
+					<option value="year">岁</option>
+					<option value="month">月</option>
+					<option value="day">天</option>
+			</select></li>
+			<li><span class="in-title">出生日期</span> <input id="birthday"
+				type="text"></li>
+
+
+			<li><span class="in-title">医保诊断</span> <input type="text">
+			</li>
+
+			<li><span class="in-title">身份证号</span> <input id="idCard"
+				type="text"></li>
+			<li><span class="in-title">结算类型</span> <select id="settleType">
+					<option selected disabled></option>
+					<option value="0">自费</option>
+					<option value="1">医保卡</option>
+					<option value="2">保险金</option>
+					<option value="3">其他</option>
+			</select></li>
+			<li><span class="in-title">医疗证号</span> <input id="mCardNo"
+				type="text"></li>
+
+
+			<li><span class="in-title">医疗类别</span> <select id="medicalType">
+					<option selected disabled></option>
+					<option value="0">市保</option>
+					<option value="1">医保</option>
+			</select></li>
+			<li><span class="in-title">开单科室</span> <select id="deptNo">
+					<option selected disabled></option>
+			</select></li>
+			<li><span class="in-title">开单医生</span> <select id="doctor">
+					<option selected disabled></option>
+			</select></li>
+		</ul>
+	</div>
+	<!-- 第五部分 -->
+	<div class="main-data-show">
+		<div class="data-title">
+			<span class="info-label">收费项目列表</span>
+			 	<span><i class="glyphicon glyphicon-minus"></i>删除</span> 
+				<span id="addDrugBtn"><i class="glyphicon glyphicon-plus"></i>增加</span>
+		</div>
+		<table class="table table-bordered">
+			<tr>
+				<th><input type="checkbox"></th>
+				<th>项目名称</th>
+				<th>规格</th>
+				<th>单价/元</th>
+				<th>库存</th>
+				<th>单位</th>
+				<th>需要数量</th>
+				<th>金额/元</th>
+				<th>执行科室</th>
+			</tr>
+
+			<tbody id="itemList">
+			</tbody>
+		</table>
+	</div>
+
+	<!-- 第六部分，合计金额 -->
+	<nav class="navbar navbar-default navbar-fixed-bottom text-center ">
+		<div class="container">
+			<span>合计金额:<input id="dxTotalMoney" class="no-boder" type="text" name="total_txt" value="零元整" readonly /> </span>
+			<span>￥:<input id="totalMoney"  class="no-boder" type="text" name="total" value="0" readonly /> </span>
+		</div>
+	</nav> 
+
+
+	<!--增加药品模态框 Modal -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="myModalLabel">药品表单</h4>
+				</div>
+				<div class="modal-body">
+				<table class="table table-bordered">
+				<tr>
+				<th><input type="checkbox"></th>
+				<th>项目名称</th>
+				<th>规格</th>
+				<th>单价/元</th>
+				<th>库存</th>
+				<th>单位</th>
+			</tr>
+
+			<tbody id="drugList">
+			</tbody>
+		</table>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button id="confirm" type="button" class="btn btn-primary">确定</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	
+	<!--收费结算模态框 Modal -->
+	<div class="modal fade" id="payModal" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title">划价表单</h4>
+				</div>
+				<div class="modal-body">
+				<table class="table table-bordered">
+				<tr>
+				<th><input type="checkbox"></th>
+				<th>划价号</th>
+				<th>病历号</th>
+				<th>总金额/元</th>
+				<th>状态</th>
+				<!-- <th>划价时间</th> -->
+			</tr>
+
+			<tbody id="payList">
+			</tbody>
+		</table>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+					<button id="payConfirm" type="button" class="btn btn-primary">确定</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="static/lib/jquery-1.12.4.js" type="text/javascript"
+		charset="UTF-8"></script>
+	<script src="static/lib/bootstrap-3.3.7-dist/js/bootstrap.js"
+		type="text/javascript" charset="UTF-8"></script>
+	<script src="static/js/register-util.js" type="text/javascript"
+		charset="UTF-8"></script>
+	<script type="text/javascript">
+		// 表示文档结构已经加载完成（不包含图片等非文字媒体文件）
+		$(document).ready(function() {
+			//全局变量
+			var detailArr = [];		//存储药品id和对应的数量
+			var caseNo; //病历号
+			
+			//----显示系统全部科室--start--
+			$.ajax({
+				url:"/his/dep",
+				type:"get",
+				dataType:"json", 	//声明数据格式为json
+				error:function(){
+					
+				},
+				success:function(e){
+					//展示数据到页面
+					$.each(e, function(indes, data){
+						//console.info(data.dname);
+						//此处最好用单引号，因为html的尖角标签（<>）本身带有双引号的意思
+						$("#deptNo").append('<option value= "' + data.id + '">'+ data.dname +'</option>');
+					});
+				}
+			});
+			//----显示系统全部科室--end--
+		
+			//根据身份证号读取基本病人信息-s
+			$("#findRegister").click(function() {
+				var pId = $("#pId").val();
+				//console.info(pId);
+				if (pId != '') {
+					//查询身份证号
+					$.ajax({
+						url : "/his/getRegisterByPid",
+						type : "get",
+						data : {pid:pId}, //后台：前端
+						dataType : "json", //声明数据格式为json
+						error : function() {
+							alert("查询失败！")
+						},
+						success : function(data) {
+							//展示数据到页面
+							//console.info(data);
+							//$("#caseNo").val(data.caseNo);可能一个人会有多个挂号信息
+							$("#rname").val(data.rname);
+							
+							//性别:{0:男,1:女}
+							$("#sex").val(data.sex);
+						
+							$("#age").val(data.age);
+							$("#birthday").val(data.birthday);
+							//$("#caseNo").val(data.caseNo);  医保诊断
+							$("#idCard").val(data.idCard);
+							
+						}
+					});
+				}else{
+					alert("无效卡号！")
+				}
+
+			});
+			//根据身份证号读取病人基本信息-e
+			
+			//----------------------------录入病历号读入挂号信息-s
+			$("#caseNo").blur(function() {
+				//取caseNo值
+				var caseNo = $("#caseNo").val();
+				var idNo = $("#idCard").val();
+				if (caseNo != '') {
+					$.ajax({
+						url : "/his/getRegisterByCaseNoAndPid",
+						type : "get",
+						data : {
+							caseno : caseNo,
+							idcard : idNo
+						}, //后台：前端
+						dataType : "json", //声明数据格式为json
+						error : function() {
+							alert("无效的病历号，请重新输入！")
+						},
+						success : function(data) {
+							//console.info(data);
+							//展示数据到页面
+							//console.info(data);
+							//结算类型:{0:自费,1:医保卡,2:保险金,3:其他,}
+							$("#settleType").val(data.settleType);
+							
+							$("#mCardNo").val(data.mcardNo);
+							
+							//医疗类别
+							$("#medicalType").val(data.medicalType);	
+							//所属科室
+							$("#deptNo").val(data.deptNo)
+							
+							//----选中所属医生--s---
+							//获取下拉菜单中转中的值
+							var depId = $("#deptNo option:selected").val();
+								if(depId != ""){
+									//查询科室的医生
+									$.ajax({
+										url:"/his/getDoctor",
+										type:"get",
+										data:{depId:depId}, //后台：前端
+										dataType:"json", 	//声明数据格式为json
+										error:function(){
+											
+										},
+										success:function(e){
+											//展示数据到页面
+											$("#doctor").html("");	//每次选择清空之前项
+											$.each(e, function(index, doctorInfo){
+												//此处最好用单引号，因为html的尖角标签（<>）本身带有双引号的意思
+												$("#doctor").append('<option value= "' + doctorInfo.id + '">'+ doctorInfo.username +'</option>');
+											});
+										
+										}
+									});
+									
+								}else{
+									alert("无效的科室信息！");
+								}
+								$("#doctor").val(data.drId);						
+							//---选中所属医生--e---
+
+						}
+					});
+				}else{
+					alert("病历号不能为空，请重新输入！")
+				}
+
+			});
+			//录入病历号读入挂号信息-e-------------------------------------
+			
+			//添加药品--s
+			$("#addDrugBtn").click(function() {
+				
+				
+				//--1--获取药品--start--
+				$.ajax({
+					url:"/his/getAllGrugs",
+					type:"get",
+					dataType:"json", 	//声明数据格式为json
+					error:function(){
+						
+					},
+					success:function(e){
+						//展示数据到页面
+						$("#drugList").html("");//再次打开模态框之前清空缓存
+						$.each(e, function(indes, data){
+							//此处最好用单引号，因为html的尖角标签（<>）本身带有双引号的意思
+							var drugInfoHtml = '<tr id="' + data.id+'"><td><input name="drug_info" type="checkbox"></td>';
+							drugInfoHtml += '<td>' + data.dgName + '</td>';
+							drugInfoHtml += '<td>' + data.dgSpec + '</td>';
+							drugInfoHtml += '<td>' + data.dgPrice + '</td>';
+							drugInfoHtml += '<td>' + data.dgInv + '</td>';
+							drugInfoHtml += '<td>' + data.dgUit + '</td>';
+							drugInfoHtml += '</tr>';
+
+							$("#drugList").append(drugInfoHtml);
+						});
+						$("#myModal").modal('show');
+					}
+				});
+				//--1--获取药品--end--
+			});
+			
+			//添加药品--s
+			//--2--选择药品--start--
+			$("#confirm").click(function() {
+				//隐藏模态框
+				$('#myModal').modal('hide');
+				//将选中药品添加到收费项目列表
+				var trs = $("#drugList").children("tr");
+				//console.info(trs);
+				// 循环检查 checkbox是否被选中
+				for(var i=0; i < trs.length; i++){
+					var ck = $(trs.get(i)).children("td").children("input[name='drug_info']:checked");
+					if(ck.length != 0 ){
+						//说明被选中，当前药品添加到项目收费列表
+						var tb=$(ck).parent().parent().children("td");
+						// id
+		        		var id = $(ck.parent().parent()).attr("id");	//药品id
+		            	// 项目名称
+		        		var name= tb.eq(1).text();
+		        		// 规格	
+		        		var spec = tb.eq(2).text();
+		        		// 单价	
+		        		var price = tb.eq(3).text();
+		        		// 数量	
+		        		var inv = tb.eq(4).text();
+		        		// 单位
+		        		var uit = tb.eq(5).text();
+		        		
+		        		//判断选中的药品是否已添加到列表，不能重复添加
+		        		var items = $("#itemList").children("tr");
+		        		//console.info(items);
+		        		for(var j=0 ; j < items.length+1; j++){
+		        			//取得收费项目列表中每一项的id
+		        			var itemId;
+		        			if(items.length==0){
+		        				itemId = 0;
+		        			}else{
+		        				itemId = $(items.get(j)).attr("id");
+		        			}
+		        			//alert("itemId:"+itemId+"   id:"+id);
+		        			if(itemId == id){
+		        				alert("不能重复添加药品！");
+		        				return;
+		        			}
+		        			
+		        		}
+		        		
+        				//此处最好用单引号，因为html的尖角标签（<>）本身带有双引号的意思
+						var drugItemHtml = '<tr id="'+ id +'"><td><input name="dgItem" type="checkbox"></td>';
+						drugItemHtml += '<td>' + name + '</td>';
+						drugItemHtml += '<td>' + spec + '</td>';
+						drugItemHtml += '<td>' + price + '</td>';
+						drugItemHtml += '<td>' + inv + '</td>'; //库存
+						drugItemHtml += '<td>' + uit + '</td>'; //单位
+						
+						drugItemHtml +='<td><input type="text" name="need_num" value="0" ></td>';	//需要数量
+						drugItemHtml +='<td><input class="no-boder" type="text" value="0" readonly="readonly"></td>';//金额
+						drugItemHtml +='<td>'+$("#deptNo").children("option:selected").text()+'</td>'; //开单科室
+						//drugItemHtml +='<td class="drugno2" style="display:none">'+id+'</td>';
+						drugItemHtml += '</tr>';
+						$("#itemList").append(drugItemHtml); 
+		        		//刷新收费项目列表条目数
+						items = $("#itemList").children("tr");
+					}
+				}
+					
+			});
+			//--2--选择药品--end--
+			
+			//---3---确认药品数量---s---
+			// 根据药的数量计算费用
+			$("#itemList").on("blur","input[name='need_num']",function(){
+				//取得数量
+				var num = $(this).val();
+				if(num == "") num = 0;
+				//alert(num);
+				
+				//需要药品的数量不能超过库存数量
+				var inv = $(this).parent().parent().children("td").eq(4).text();
+				//alert("库存数量："+inv + "num: "+num)
+				//js比较数字大小不能直接比较
+				if(parseInt(num) > parseInt(inv)){
+					alert("库存数量不足！")
+					$(this).val(0);
+				}else{
+					// 计算金额(单价*数量)
+					var money = num*($(this).parent().parent().children("td").eq(3).text());
+					//alert(money);
+					//更改金额
+					$(this).parent().parent().children("td").eq(7).children("input").val(money);
+				}
+				
+			});
+			//---3---确认药品数量---e---
+			
+			//----4--计算选中项金额--s---
+			// 计算总金额
+			var total = 0; //总金额
+			$("#itemList").on("click","input[type='checkbox']",function(){
+				var price = $(this).parent().parent().children("td").eq(7).children("input").val();
+				var isSelected = $(this).is(":checked");
+				//console.info(isSelected);
+				if(isSelected){
+					total+=eval(price);	
+				}else{
+					total-=eval(price);	
+				}
+				$("#totalMoney").val(total);
+				//转大写
+				$("#dxTotalMoney").val(number_chinese(total.toString()));
+			})
+			
+			//----4--计算选中项金额--e---
+			
+			//----5--划价--s---
+			$("#huajiaBtn").click(function() {
+				//取得收费项目列表下的所有<tr></tr>
+				var trs = $("#itemList").children("tr");
+				
+				for(var i=0; i < trs.length; i++){
+					//选中的列表
+					var checkedItem = $(trs.get(i)).children("td").children("input[name='dgItem']:checked");
+					if(checkedItem != ""){
+						var tds =  $(checkedItem).parent().parent().children("td");
+						var id = $(checkedItem).parent().parent().attr("id");
+						var num = tds.eq(6).children("input").val();
+						var price = tds.eq(3).text();
+						alert("id:"+id+"num:"+num+"price:"+price);
+						// 向数组中添加数据 push，用（,）分割( 拆分时符号要对应！)
+						detailArr.push(id+","+num+","+price);
+					}
+				}
+				
+				alert("detailArr:"+detailArr);
+				//取得当前病历号
+				caseNo = $("#caseNo").val();	
+				//新增----pay_info信息--s--
+				$.ajax({
+					url : "/his/addpayInfo",
+					type : "post",
+					dataType : "text",
+					data : {
+						caseNo:caseNo,
+						detailArr:detailArr
+					},
+					traditional:true,
+					error : function() {
+
+					},
+					success : function(e) {
+						//展示数据到页面
+						if (e == "no") {
+							alert("划价失败！");
+						} else {
+							alert("划价成功！");
+						}
+
+					}
+				});
+				//新增----pay_info信息--e--
+				
+			});
+			//----5--划价--e---
+			
+			
+			//-----6--收费结算----s---
+			//查询当前病历号的所有划价信息
+			$("#payBtn").click(function() {
+				caseNo = $("#caseNo").val();
+				//获得所有的划价信息
+				$.ajax({
+				url:"/his/getPayInfoByCaseNo",
+				type:"get",
+				dataType:"json", 	//声明数据格式为json
+				data:{
+					caseNo:caseNo
+				},
+				error:function(){
+					alert(" 获取划价信息失败！");
+				},
+				success:function(e){
+					console.info(e);
+					$("#payList").html(""); //再次查询之前清空缓存
+					//展示数据到页面
+					 $.each(e,function(index,data){
+						var payHtml = '<tr id="'+data.id+'"><td><input type="checkbox" name="payItem"></td>';
+						payHtml += '<td>' + data.id + '</td>';
+						payHtml += '<td>' + data.caseNo + '</td>';
+						payHtml += '<td id="'+data.payNum+'">' + data.payMoney + '</td>';
+						console.info("payState:"+data.payState);
+						//付费状态{0:未付费,1:已付费}
+						if(data.payState == 0){
+							payHtml += '<td>未付费</td>'; 
+						}else if(data.payState == 1){
+							payHtml += '<td>已付费</td>';
+						}else{
+							payHtml += '<td>未知状态</td>';
+						}
+						//payHtml += '<td>划价时间</td>';//划价时间
+						payHtml += '</tr>';
+						$("#payList").append(payHtml);	
+					 }); 
+					
+					//数据加载完显示到模态框
+					$("#payModal").modal('show');
+					}
+				});
+						
+			});
+			//-----6--收费结算----e---
+			
+			//----7---确定付款---s----
+			$("#payConfirm").click(function() {
+				var payData = [];	//存储pId和 payNum	
+				//隐藏模态框
+				$('#payModal').modal('hide');
+		    	
+				//取得收费项目列表下的所有<tr></tr>
+				var trs = $("#payList").children("tr");
+				
+				for(var i=0; i < trs.length; i++){
+					//选中的列表
+					var checkedItem = $(trs.get(i)).children("td").children("input[name='payItem']:checked");
+					if(checkedItem.length != 0 ){
+						console.info(checkedItem);
+						//var tds =  $(checkedItem).parent().parent().children("td");
+						var payId = $(checkedItem).parent().parent().attr("id"); //划价号，也就是pay_info的id
+						var payNum =$(checkedItem).parent().parent().children("td").eq(3).attr("id");
+						alert("payId:"+payId+"payNum:"+payNum)
+						// 向数组中添加数据 push，用（,）分割( 拆分时符号要对应！)
+						payData.push(payId+","+payNum);
+					}
+				}
+				//-----1-修改pay_info的付款状态  //2-减少库存对应药品数-----s
+				$.ajax({
+					url : "/his/payConfirm",
+					type : "post",
+					dataType : "text",
+					data : {
+						payData:payData
+					},
+					traditional:true,
+					error : function() {
+
+					},
+					success : function(e) {
+						//展示数据到页面
+						if (e == "no") {
+							alert("付费失败！");
+						} else {
+							alert("付费成功！");
+						}
+
+					}
+				});
+				//-----1-修改pay_info的付款状态  //2-减少库存对应药品数-----e
+				
+				
+			});
+			//----7---确定付款---e----
+			
+		});
+	</script>
+
+</body>
+</html>
